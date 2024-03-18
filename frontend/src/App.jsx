@@ -1,39 +1,18 @@
-import React, { useEffect,useMemo,useState } from 'react'
-import {io} from 'socket.io-client';
+import { Route, Router, Routes ,BrowserRouter} from "react-router-dom";
+import { Practice } from "./pages/Practice";
+
  const App = () => {
-  const [message,setMessage]=useState('')
-  const socket=useMemo(()=>{return io('http://localhost:3000');
-},[])
-  const handleSubmit=(e)=>{
-      e.preventDefault();
-      socket.emit('message',message);
-  }
+
+return (
+  <BrowserRouter>
   
+  <Routes>
+    <Route path="/practice" element={<Practice/>}/>
+  </Routes>
+  
+  </BrowserRouter>
+)
 
-  useEffect(()=>{
-
-    socket.on('connect',()=>{
-      console.log("connected user",socket.id);
-    });
-
-    socket.on('welcom',(s)=>{
-      console.log(s);
-    })
-
-    socket.on('recive-message',(data)=>{
-      console.log(data);
-
-    })
-
-  },[])
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input placeholder='Enter message...' value={message} onChange={(e)=>setMessage(e.target.value)} name='message'/>
-        <button type='submit'>Send</button>
-      </form>
-    </div>
-  )
 }
 
 
