@@ -8,6 +8,7 @@ export const SocketOne = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         socket.emit('message',message);
+        
     }
     
   
